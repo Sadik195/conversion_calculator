@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Currency Converter (INR & MYR → BDT)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .calculator {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 300px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #222;
+    }
+
+    .flag {
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <h2>💱 Currency Converter</h2>
+
+    <label for="country">Select Country:</label>
+    <select id="country">
+      <option value="india">🇮🇳 India (1 INR = 1.55 BDT)</option>
+      <option value="malaysia">🇲🇾 Malaysia (1 MYR = 31 BDT)</option>
+    </select>
+
+    <label for="amount">Enter Amount:</label>
+    <input type="number" id="amount" placeholder="Enter amount in INR or MYR">
+
+    <button onclick="convert()">Convert to BDT</button>
+
+    <div class="result" id="result">Result will appear here</div>
+  </div>
+
+  <script>
+    function convert() {
+      const country = document.getElementById("country").value;
+      const amount = parseFloat(document.getElementById("amount").value);
+      const resultDiv = document.getElementById("result");
+
+      if (isNaN(amount) || amount <= 0) {
+        resultDiv.innerText = "⚠️ Please enter a valid amount.";
+        return;
+      }
+
+      let rate = 0;
+      let currencyName = "";
+
+      if (country === "india") {
+        rate = 1.55;
+        currencyName = "INR";
+      } else if (country === "malaysia") {
+        rate = 31;
+        currencyName = "MYR";
+      }
+
+      const converted = amount * rate;
+      resultDiv.innerHTML = `💰 ${amount} ${currencyName} = <strong>${converted.toFixed(2)} BDT</strong>`;
+    }
+  </script>
+
+</body>
+</html>
